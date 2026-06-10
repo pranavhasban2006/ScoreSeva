@@ -17,7 +17,17 @@ function getBandFromScore(score) {
   return "VERY POOR";
 }
 
-export default function ScoreGauge({ score, size = 220 }) {
+import React, { useState, useEffect } from 'react';
+
+export default function ScoreGauge({ score, size: defaultSize = 220 }) {
+  const [size, setSize] = useState(typeof window !== 'undefined' && window.innerWidth < 768 ? 180 : defaultSize);
+  
+  useEffect(() => {
+    const handleResize = () => setSize(window.innerWidth < 768 ? 180 : defaultSize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [defaultSize]);
+
   const band      = getBandFromScore(score);
   const bandInfo  = RISK_BANDS[band];
   const color     = bandInfo.color;

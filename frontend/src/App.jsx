@@ -4,6 +4,7 @@ import HealthPage from "./pages/HealthPage";
 import ScorePage from "./pages/ScorePage";
 import FraudPage from "./pages/FraudPage";
 import TrajectoryPage from "./pages/TrajectoryPage";
+import NLPPage from "./pages/NLPPage";
 
 // Phase 3B-3D pages — placeholders until those phases are built
 const Placeholder = ({ title }) => (
@@ -24,7 +25,7 @@ export default function App() {
           <Route index          element={<ScorePage />} />
           <Route path="fraud"      element={<FraudPage />} />
           <Route path="trajectory" element={<TrajectoryPage />} />
-          <Route path="nlp"        element={<Placeholder title="NLP Psychometric" />} />
+          <Route path="nlp"        element={<NLPPage />} />
           <Route path="health"     element={<HealthPage />} />
         </Route>
       </Routes>

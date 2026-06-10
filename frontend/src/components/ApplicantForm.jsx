@@ -4,7 +4,7 @@ export default function ApplicantForm({ formData, handleChange, handleSubmit, lo
       
       <div className="space-y-4">
         <h3 className="text-sm font-semibold text-brand-orange border-b pb-1">Financial</h3>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div><label className="label">Annual Income</label><input type="number" name="annual_income" value={formData.annual_income} onChange={handleChange} className="input-field" required /></div>
           <div><label className="label">Loan Amount</label><input type="number" name="loan_amount" value={formData.loan_amount} onChange={handleChange} className="input-field" required /></div>
           <div><label className="label">Monthly EMI</label><input type="number" name="monthly_emi" value={formData.monthly_emi} onChange={handleChange} className="input-field" required /></div>
@@ -13,7 +13,7 @@ export default function ApplicantForm({ formData, handleChange, handleSubmit, lo
 
       <div className="space-y-4">
         <h3 className="text-sm font-semibold text-brand-orange border-b pb-1">Personal</h3>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div><label className="label">Age</label><input type="number" name="age_years" value={formData.age_years} onChange={handleChange} className="input-field" required /></div>
           <div>
             <label className="label">Gender</label>
@@ -39,7 +39,7 @@ export default function ApplicantForm({ formData, handleChange, handleSubmit, lo
 
       <div className="space-y-4">
         <h3 className="text-sm font-semibold text-brand-orange border-b pb-1">Employment</h3>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div><label className="label">Employment Years</label><input type="number" step="0.1" name="employment_years" value={formData.employment_years} onChange={handleChange} className="input-field" required /></div>
           <div>
             <label className="label">Income Source</label>
@@ -60,7 +60,7 @@ export default function ApplicantForm({ formData, handleChange, handleSubmit, lo
 
       <div className="space-y-4">
         <h3 className="text-sm font-semibold text-brand-orange border-b pb-1">Credit History</h3>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div><label className="label">Ext Credit Score 1</label><input type="number" step="0.01" name="ext_credit_score_1" value={formData.ext_credit_score_1} onChange={handleChange} className="input-field" required /></div>
           <div><label className="label">Ext Credit Score 2</label><input type="number" step="0.01" name="ext_credit_score_2" value={formData.ext_credit_score_2} onChange={handleChange} className="input-field" required /></div>
           <div><label className="label">Ext Credit Score 3</label><input type="number" step="0.01" name="ext_credit_score_3" value={formData.ext_credit_score_3} onChange={handleChange} className="input-field" required /></div>
@@ -70,7 +70,7 @@ export default function ApplicantForm({ formData, handleChange, handleSubmit, lo
 
       <div className="space-y-4">
         <h3 className="text-sm font-semibold text-brand-orange border-b pb-1">Assets</h3>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="flex items-center gap-2 mt-6">
             <input type="checkbox" name="owns_car" checked={formData.owns_car} onChange={handleChange} className="w-4 h-4 text-brand-orange focus:ring-brand-orange border-gray-300 rounded" />
             <label className="label !mb-0">Owns Car</label>

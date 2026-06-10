@@ -3,22 +3,23 @@ import { fraudWithScore } from "../lib/api";
 import { RISK_BANDS } from "../lib/constants";
 import PersonaSelector from "../components/PersonaSelector";
 import ScoreGauge from "../components/ScoreGauge";
-import LoadingSpinner from "../components/LoadingSpinner";
+import ResultSkeleton from "../components/ResultSkeleton";
 import ErrorBanner from "../components/ErrorBanner";
 import ApplicantForm from "../components/ApplicantForm";
 import { CheckCircle2, AlertTriangle, ShieldAlert } from "lucide-react";
 
-import { DEMO_PROFILES } from "../lib/demoData";
+import { DEMO_PERSONAS, RISK_BANDS } from "../lib/constants";
 
 export default function ScorePage() {
-  const [formData, setFormData] = useState(DEMO_PROFILES.ramesh);
+  const [formData, setFormData] = useState(DEMO_PERSONAS[0]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [result, setResult] = useState(null);
 
   const handleSelectPersona = (id) => {
-    if (DEMO_PROFILES[id]) {
-      setFormData(DEMO_PROFILES[id]);
+    const persona = DEMO_PERSONAS.find((p) => p.id === id);
+    if (persona) {
+      setFormData(persona);
       setResult(null);
       setError(null);
     }
@@ -49,6 +50,33 @@ export default function ScorePage() {
 
   return (
     <div className="max-w-6xl mx-auto space-y-6">
+      {/* Hero Banner */}
+      <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl p-8 text-white shadow-lg relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full -translate-y-1/2 translate-x-1/4 blur-2xl"></div>
+        <div className="relative z-10 max-w-3xl">
+          <h1 className="text-3xl md:text-4xl font-extrabold mb-3 leading-tight">
+            190M credit-invisible Indians.<br/>Zero CIBIL scores.
+          </h1>
+          <p className="text-xl md:text-2xl text-orange-100 font-medium mb-6">
+            ScoreSeva changes that.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <span className="bg-white/20 backdrop-blur-sm border border-white/30 text-white px-3 py-1.5 rounded-full text-sm font-bold flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+              22 Features
+            </span>
+            <span className="bg-white/20 backdrop-blur-sm border border-white/30 text-white px-3 py-1.5 rounded-full text-sm font-bold flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+              6 ML Models
+            </span>
+            <span className="bg-white/20 backdrop-blur-sm border border-white/30 text-white px-3 py-1.5 rounded-full text-sm font-bold flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+              4 Fairness Dimensions
+            </span>
+          </div>
+        </div>
+      </div>
+
       <PersonaSelector onSelect={handleSelectPersona} loading={loading} />
 
       {error && <ErrorBanner message={error} onDismiss={() => setError(null)} />}
@@ -69,9 +97,7 @@ export default function ScorePage() {
         {/* Right: Results */}
         <div>
           {loading && (
-            <div className="card h-full flex items-center justify-center">
-              <LoadingSpinner message="Evaluating 22 alternate data points..." />
-            </div>
+            <ResultSkeleton />
           )}
 
           {!loading && !result && (
@@ -90,8 +116,8 @@ export default function ScorePage() {
               <div className="card text-center">
                 <ScoreGauge score={result.credit_score.scoreseva_score} />
                 
-                <div className="mt-4 p-4 rounded-xl" style={{ backgroundColor: RISK_BANDS[result.credit_score.band].bg }}>
-                  <p className="font-bold text-lg" style={{ color: RISK_BANDS[result.credit_score.band].color }}>
+                <div className="mt-4 p-4 rounded-xl" style={{ backgroundColor: RISK_BANDS[result.credit_score.band]?.bg || "#f3f4f6" }}>
+                  <p className="font-bold text-lg" style={{ color: RISK_BANDS[result.credit_score.band]?.color || "#1f2937" }}>
                     {result.credit_score.recommendation}
                   </p>
                   <p className="text-sm text-gray-600 mt-1">
@@ -158,7 +184,7 @@ export default function ScorePage() {
               <div className="card">
                 <div className="flex justify-between items-end mb-2">
                   <p className="text-sm font-bold text-gray-800">Default Probability</p>
-                  <p className="text-lg font-bold" style={{ color: RISK_BANDS[result.credit_score.band].color }}>
+                  <p className="text-lg font-bold" style={{ color: RISK_BANDS[result.credit_score.band]?.color || "#1f2937" }}>
                     {(result.credit_score.default_probability * 100).toFixed(1)}%
                   </p>
                 </div>
@@ -167,7 +193,7 @@ export default function ScorePage() {
                     className="h-2.5 rounded-full transition-all duration-1000"
                     style={{ 
                       width: `${result.credit_score.default_probability * 100}%`,
-                      backgroundColor: RISK_BANDS[result.credit_score.band].color
+                      backgroundColor: RISK_BANDS[result.credit_score.band]?.color || "#1f2937"
                     }}
                   ></div>
                 </div>

@@ -4,7 +4,17 @@
  * Lower is better (Green). Higher is worse (Red).
  */
 
-export default function FraudGauge({ score, size = 220 }) {
+import React, { useState, useEffect } from 'react';
+
+export default function FraudGauge({ score, size: defaultSize = 220 }) {
+  const [size, setSize] = useState(typeof window !== 'undefined' && window.innerWidth < 768 ? 180 : defaultSize);
+  
+  useEffect(() => {
+    const handleResize = () => setSize(window.innerWidth < 768 ? 180 : defaultSize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [defaultSize]);
+
   // 0-100 scale.
   // Color scale: 0-25 Green, 26-60 Orange, 61-100 Red
   let color = "#22C55E"; // Green

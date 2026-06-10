@@ -1,22 +1,23 @@
 import { useState } from "react";
 import { fraudWithScore } from "../lib/api";
-import { DEMO_PROFILES } from "../lib/demoData";
+import { DEMO_PERSONAS } from "../lib/constants";
 import PersonaSelector from "../components/PersonaSelector";
 import FraudGauge from "../components/FraudGauge";
 import ApplicantForm from "../components/ApplicantForm";
-import LoadingSpinner from "../components/LoadingSpinner";
+import ResultSkeleton from "../components/ResultSkeleton";
 import ErrorBanner from "../components/ErrorBanner";
-import { ShieldCheck, ShieldAlert, AlertTriangle, AlertCircle, Fingerprint } from "lucide-react";
+import { ShieldCheck, ShieldAlert, AlertTriangle, AlertCircle, Fingerprint, CheckCircle2 } from "lucide-react";
 
 export default function FraudPage() {
-  const [formData, setFormData] = useState(DEMO_PROFILES.ramesh);
+  const [formData, setFormData] = useState(DEMO_PERSONAS[0]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [result, setResult] = useState(null);
 
   const handleSelectPersona = (id) => {
-    if (DEMO_PROFILES[id]) {
-      setFormData(DEMO_PROFILES[id]);
+    const persona = DEMO_PERSONAS.find((p) => p.id === id);
+    if (persona) {
+      setFormData(persona);
       setResult(null);
       setError(null);
     }
@@ -70,9 +71,7 @@ export default function FraudPage() {
         {/* Right: Results */}
         <div>
           {loading && (
-            <div className="card h-full flex items-center justify-center">
-              <LoadingSpinner message="Scanning digital footprint for anomalies..." />
-            </div>
+            <ResultSkeleton />
           )}
 
           {!loading && !result && (

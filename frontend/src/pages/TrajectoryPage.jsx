@@ -1,22 +1,23 @@
 import { useState } from "react";
 import { getTrajectory, getDemoTrajectory } from "../lib/api";
-import { DEMO_PROFILES } from "../lib/demoData";
+import { DEMO_PERSONAS } from "../lib/constants";
 import PersonaSelector from "../components/PersonaSelector";
 import ApplicantForm from "../components/ApplicantForm";
-import LoadingSpinner from "../components/LoadingSpinner";
+import ResultSkeleton from "../components/ResultSkeleton";
 import ErrorBanner from "../components/ErrorBanner";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { TrendingUp, ArrowRight, Target, Clock, Zap } from "lucide-react";
 
 export default function TrajectoryPage() {
-  const [formData, setFormData] = useState(DEMO_PROFILES.ramesh);
+  const [formData, setFormData] = useState(DEMO_PERSONAS[0]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [result, setResult] = useState(null);
 
   const handleSelectPersona = async (id) => {
-    if (DEMO_PROFILES[id]) {
-      setFormData(DEMO_PROFILES[id]);
+    const persona = DEMO_PERSONAS.find((p) => p.id === id);
+    if (persona) {
+      setFormData(persona);
       setLoading(true);
       setError(null);
       setResult(null);
@@ -87,9 +88,7 @@ export default function TrajectoryPage() {
         {/* Right: Results */}
         <div>
           {loading && (
-            <div className="card h-full flex items-center justify-center">
-              <LoadingSpinner message="Simulating future trajectory models..." />
-            </div>
+            <ResultSkeleton />
           )}
 
           {!loading && !result && (
