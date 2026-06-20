@@ -77,6 +77,41 @@ async def list_endpoints() -> dict:
                 "description": "How the ScoreSeva score is computed",
                 "key_output": "Methodology documentation",
             },
+            {
+                "method": "POST", "path": "/bank-statement/analyze",
+                "description": "Parse bank statement (PDF/CSV) and extract 15 features",
+                "key_output": "statement_summary, extracted_features, income_verification",
+            },
+            {
+                "method": "POST", "path": "/bank-statement/score-with-statement",
+                "description": "Credit score enriched with parsed bank statement features",
+                "key_output": "Credit score + fraud check + statement_enhancement",
+            },
+            {
+                "method": "POST", "path": "/cibil/parse",
+                "description": "Parse CIBIL report JSON or manual entry",
+                "key_output": "10 extracted CIBIL features",
+            },
+            {
+                "method": "POST", "path": "/cibil/score-augmented",
+                "description": "Combine alt-data with CIBIL data for hybrid score",
+                "key_output": "final_score, score_breakdown, comparison verdict",
+            },
+            {
+                "method": "POST", "path": "/anti-gaming/score-with-gaming-check",
+                "description": "Base score minus gaming penalties",
+                "key_output": "final_score, penalty_applied, gaming_analysis",
+            },
+            {
+                "method": "POST", "path": "/letters/generate",
+                "description": "Generates a plain-English decision letter",
+                "key_output": "letter_text, technical_appendix, decision",
+            },
+            {
+                "method": "POST", "path": "/letters/generate-pdf",
+                "description": "Generates a decision letter PDF",
+                "key_output": "PDF binary",
+            },
         ],
         "demo_shortcuts": {
             "trajectory_demos": [

@@ -29,7 +29,7 @@ from middleware.error_handler import (
     pydantic_exception_handler,
     global_exception_handler,
 )
-from routers import health, scoring, fraud, trajectory, nlp, meta
+from routers import health, scoring, fraud, trajectory, nlp, meta, bank_statement, cibil_augmentation, anti_gaming, letters
 
 # ── Logging setup ─────────────────────────────────────────────────────
 logging.basicConfig(
@@ -119,6 +119,10 @@ app.include_router(fraud.router)
 app.include_router(trajectory.router)
 app.include_router(nlp.router)
 app.include_router(meta.router)
+app.include_router(bank_statement.router)
+app.include_router(cibil_augmentation.router)
+app.include_router(anti_gaming.router)
+app.include_router(letters.router)
 
 # ── Root ──────────────────────────────────────────────────────────────
 @app.get("/", tags=["Root"])
