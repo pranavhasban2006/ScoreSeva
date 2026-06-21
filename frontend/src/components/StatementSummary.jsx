@@ -10,17 +10,17 @@ export default function StatementSummary({ data, scoreDelta }) {
 
   return (
     <div className="card space-y-5">
-      <div className="flex justify-between items-center border-b pb-3">
+      <div className="flex justify-between items-center border-b pb-3 border-gray-200">
         <h3 className="font-bold text-gray-900 flex items-center gap-2">
           📄 Statement Analysis
         </h3>
-        <span className="text-xs font-medium bg-blue-50 text-blue-700 px-2 py-1 rounded-full">
+        <span className="text-xs font-medium bg-blue-100 text-blue-800 px-3 py-1 rounded-full">
           {statement_summary.months_analyzed} months analyzed
         </span>
       </div>
 
       {/* Income Verification */}
-      <div className="bg-gray-50 rounded-lg p-4 border border-gray-100">
+      <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
         <p className="text-sm font-bold text-gray-700 mb-3">Income Verification</p>
         <div className="grid grid-cols-2 gap-4 mb-3">
           <div>
@@ -34,19 +34,19 @@ export default function StatementSummary({ data, scoreDelta }) {
         </div>
         
         {income_verification.verification_status === 'MATCHES' && (
-          <div className="flex items-center gap-2 text-green-700 bg-green-50 px-3 py-2 rounded-md text-sm font-medium">
+          <div className="flex items-center gap-2 text-green-800 bg-green-100 px-3 py-2 rounded-md text-sm font-medium">
             <CheckCircle2 className="w-4 h-4" />
             Income Matches
           </div>
         )}
         {income_verification.verification_status === 'OVERSTATED' && (
-          <div className="flex items-center gap-2 text-red-700 bg-red-50 px-3 py-2 rounded-md text-sm font-medium">
+          <div className="flex items-center gap-2 text-red-800 bg-red-100 px-3 py-2 rounded-md text-sm font-medium">
             <AlertCircle className="w-4 h-4" />
             ⚠️ Claimed income is {income_verification.discrepancy_pct.toFixed(0)}% higher than bank data
           </div>
         )}
         {income_verification.verification_status === 'UNDERSTATED' && (
-          <div className="flex items-center gap-2 text-amber-700 bg-amber-50 px-3 py-2 rounded-md text-sm font-medium">
+          <div className="flex items-center gap-2 text-amber-800 bg-amber-100 px-3 py-2 rounded-md text-sm font-medium">
             <AlertTriangle className="w-4 h-4" />
             Claimed income is lower than actual income
           </div>
@@ -55,18 +55,18 @@ export default function StatementSummary({ data, scoreDelta }) {
 
       {/* 3-Column Stats */}
       <div className="grid grid-cols-3 gap-3">
-        <div className="p-3 bg-gray-50 rounded-lg border border-gray-100">
+        <div className="p-3 bg-gray-50 rounded-lg border border-gray-200">
           <p className="text-xs text-gray-500 mb-1">Avg Monthly Bal</p>
           <p className="font-bold text-gray-900">{formatCurrency(statement_summary.avg_monthly_balance)}</p>
         </div>
-        <div className="p-3 bg-gray-50 rounded-lg border border-gray-100">
+        <div className="p-3 bg-gray-50 rounded-lg border border-gray-200">
           <p className="text-xs text-gray-500 mb-1">Income Regularity</p>
           <div className="flex items-end justify-between mb-1">
             <p className="font-bold text-gray-900">{statement_summary.income_regularity_score.toFixed(0)}</p>
             <span className="text-[10px] text-gray-400">/100</span>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-1.5">
-            <div className="bg-blue-500 h-1.5 rounded-full" style={{ width: `${statement_summary.income_regularity_score}%` }}></div>
+          <div className="w-full bg-gray-100 rounded-full h-2">
+            <div className="bg-blue-500 h-2 rounded-full" style={{ width: `${statement_summary.income_regularity_score}%` }}></div>
           </div>
         </div>
         <div className="p-3 bg-gray-50 rounded-lg border border-gray-100">

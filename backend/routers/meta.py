@@ -112,6 +112,16 @@ async def list_endpoints() -> dict:
                 "description": "Generates a decision letter PDF",
                 "key_output": "PDF binary",
             },
+            {
+                "method": "POST", "path": "/chatbot/ask",
+                "description": "Grounded AI assistant for ScoreSeva",
+                "key_output": "response",
+            },
+            {
+                "method": "POST", "path": "/counterfactual/explain",
+                "description": "Minimal actionable changes for approval",
+                "key_output": "counterfactual_needed, changes_required, projected_score",
+            },
         ],
         "demo_shortcuts": {
             "trajectory_demos": [

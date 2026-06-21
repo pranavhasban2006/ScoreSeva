@@ -36,24 +36,24 @@ export default function GamingRiskPanel({ result }) {
   });
 
   return (
-    <div className="rounded-xl overflow-hidden shadow-sm border border-gray-200">
-      <div className="bg-slate-800 px-4 py-3 flex items-center justify-between">
+    <div className="card shadow-sm space-y-0 p-0 overflow-hidden">
+      <div className="bg-gray-50 px-6 py-4 flex items-center justify-between border-b border-gray-200">
         <div className="flex items-center gap-2">
-          <ShieldAlert className="w-5 h-5 text-slate-300" />
-          <h3 className="font-bold text-white tracking-wide">Anti-Gaming Analysis</h3>
+          <ShieldAlert className="w-5 h-5 text-gray-400" />
+          <h3 className="text-lg font-medium text-gray-900">Anti-Gaming Analysis</h3>
         </div>
-        <span className={`px-2.5 py-0.5 rounded text-xs font-bold uppercase ${colors.bg} ${colors.text}`}>
+        <span className={`px-3 py-1 rounded-full text-xs font-medium ${colors.bg} ${colors.text}`}>
           {risk_tier.replace('_', ' ')}
         </span>
       </div>
 
-      <div className="bg-white p-5">
+      <div className="bg-white p-6">
         <div className="mb-4">
           <div className="flex justify-between items-end mb-1">
             <span className="text-sm font-medium text-gray-700">Gaming Risk Score</span>
             <span className={`text-lg font-bold ${colors.text}`}>{gaming_risk_score} / 100</span>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
+          <div className="w-full bg-gray-100 rounded-full h-2">
             <div 
               className={`h-2 rounded-full transition-all duration-1000 ${colors.bar}`}
               style={{ width: `${Math.min(gaming_risk_score, 100)}%` }}

@@ -11,8 +11,10 @@ import CibilInput from "../components/CibilInput";
 import CibilComparisonCard from "../components/CibilComparisonCard";
 import GamingRiskPanel from "../components/GamingRiskPanel";
 import DecisionLetter from "../components/DecisionLetter";
+import PathToApproval from "../components/PathToApproval";
 import { CheckCircle2, AlertTriangle, ShieldAlert } from "lucide-react";
-import { scoreAugmented, scoreWithGamingCheck, generateLetter } from "../lib/api";
+import { scoreAugmented, scoreWithGamingCheck, generateLetter, getCounterfactual } from "../lib/api";
+import { useScoreContext } from "../context/ScoreContext";
 
 import { DEMO_PERSONAS, RISK_BANDS } from "../lib/constants";
 
@@ -28,6 +30,34 @@ export default function ScorePage() {
   const [runAntiGamingCheck, setRunAntiGamingCheck] = useState(true);
   const [letterData, setLetterData] = useState(null);
   const [letterPayload, setLetterPayload] = useState(null);
+  const [counterfactualData, setCounterfactualData] = useState(null);
+
+  const { setCurrentContext } = useScoreContext();
+
+  useEffect(() => {
+    if (!result) {
+      setCurrentContext(null);
+      return;
+    }
+
+    const summary = {
+      persona: formData?.name || "Custom applicant",
+      final_score: result.credit_score?.scoreseva_score || null,
+      decision: letterData?.decision || (result.credit_score?.scoreseva_score >= 650 ? "APPROVED" : (result.credit_score?.scoreseva_score < 500 ? "REJECTED" : "REVIEW")),
+      bureau_confidence: result.augmentation?.bureau_confidence || null,
+      gaming_risk_score: result.gaming_analysis?.risk_score || null,
+      risk_tier: result.credit_score?.band || null,
+      top_reasons: letterData?.reason_codes || [
+        ...(result.credit_score?.top_positive_factors || []).map((f) => `+ ${f}`),
+        ...(result.credit_score?.top_negative_factors || []).map((f) => `- ${f}`)
+      ]
+    };
+
+    setCurrentContext(summary);
+    
+    // Cleanup on unmount
+    return () => setCurrentContext(null);
+  }, [formData, result, letterData, setCurrentContext]);
 
   const handleSelectPersona = (id) => {
     const persona = DEMO_PERSONAS.find((p) => p.id === id);
@@ -38,6 +68,7 @@ export default function ScorePage() {
       setStatementData(null);
       setStatementFile(null);
       setCibilData(null);
+      setCounterfactualData(null);
     }
   };
 
@@ -130,14 +161,31 @@ export default function ScorePage() {
       }).catch(err => {
         console.error("Failed to generate letter", err);
       });
+
+      if (decision === "REJECTED" || decision === "REVIEW") {
+        const cfPayload = {
+          applicant_features: result.credit_score.feature_values || formData,
+          current_score: score,
+          decision,
+          shap_values: result.credit_score.shap_values || {}
+        };
+        getCounterfactual(cfPayload).then(res => {
+          setCounterfactualData(res.data);
+        }).catch(err => {
+          console.error("Failed to fetch counterfactual", err);
+        });
+      } else {
+        setCounterfactualData(null);
+      }
     } else {
       setLetterData(null);
       setLetterPayload(null);
+      setCounterfactualData(null);
     }
   }, [result]);
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6">
+    <div className="max-w-6xl mx-auto px-4 lg:px-8 space-y-6 pb-12">
       {/* Hero Banner */}
       <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl p-8 text-white shadow-lg relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full -translate-y-1/2 translate-x-1/4 blur-2xl"></div>
@@ -343,6 +391,7 @@ export default function ScorePage() {
       {letterData && (
         <div className="mt-8 pt-8 border-t border-gray-200">
           <DecisionLetter letterData={letterData} payload={letterPayload} />
+          <PathToApproval counterfactualData={counterfactualData} decision={letterPayload?.decision} />
         </div>
       )}
     </div>

@@ -33,10 +33,10 @@ export default function DecisionLetter({ letterData, payload }) {
   };
 
   return (
-    <div className="card max-w-3xl mx-auto border-t-4 border-t-orange-500 shadow-md">
+    <div className="card max-w-3xl mx-auto shadow-none">
       <div className="flex justify-between items-start mb-6">
         <div>
-          <h2 className="text-xl font-black tracking-tight flex items-center gap-2">
+          <h2 className="text-xl font-bold tracking-tight flex items-center gap-2">
             <span className="text-orange-600">Score</span>Seva
           </h2>
           <p className="text-xs text-gray-400 mt-1 uppercase tracking-widest">Decision Notice</p>
@@ -44,7 +44,7 @@ export default function DecisionLetter({ letterData, payload }) {
         <button 
           onClick={handleDownload}
           disabled={downloading}
-          className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded text-sm font-medium transition-colors disabled:opacity-50"
+          className="btn-secondary flex items-center gap-1.5 px-3 py-1.5 text-sm"
         >
           <Download className="w-4 h-4" />
           {downloading ? "Generating..." : "Download PDF"}

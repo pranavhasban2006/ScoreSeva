@@ -49,9 +49,9 @@ export default function CibilComparisonCard({ result }) {
   };
 
   const getConfidenceColor = () => {
-    if (bureau_confidence === "NONE") return "bg-orange-500";
-    if (bureau_confidence === "LOW") return "bg-amber-500";
-    return "bg-green-500";
+    if (bureau_confidence === "NONE") return "bg-red-100 text-red-800";
+    if (bureau_confidence === "LOW") return "bg-amber-100 text-amber-800";
+    return "bg-green-100 text-green-800";
   };
 
   const bureauCard = getBureauCardConfig();
@@ -71,33 +71,33 @@ export default function CibilComparisonCard({ result }) {
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Left Column: Bureau Only */}
-        <div className={`p-6 rounded-2xl border-2 flex flex-col items-center justify-center text-center ${bureauCard.bg} ${bureauCard.border}`}>
+        <div className={`p-6 rounded-lg border flex flex-col items-center justify-center text-center ${bureauCard.bg} ${bureauCard.border}`}>
           <div className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Traditional Bureau</div>
           {bureauCard.icon}
-          <h3 className={`text-xl font-bold mb-2 ${bureauCard.titleColor}`}>{bureauCard.title}</h3>
+          <h3 className={`text-lg font-medium mb-2 ${bureauCard.titleColor}`}>{bureauCard.title}</h3>
           <p className="text-sm text-gray-600 max-w-[200px]">{bureauCard.desc}</p>
         </div>
 
         {/* Right Column: ScoreSeva Alternative */}
-        <div className="p-6 rounded-2xl border-2 border-orange-200 bg-white shadow-sm flex flex-col">
-          <div className="text-xs font-bold text-orange-500 uppercase tracking-widest mb-2 text-center">ScoreSeva Score</div>
+        <div className="card flex flex-col">
+          <div className="text-xs font-bold text-orange-600 uppercase tracking-widest mb-2 text-center">ScoreSeva Score</div>
           
           <div className="flex flex-col items-center justify-center flex-grow">
             <div className="flex items-center gap-2 mb-1">
-              <span className={`px-2 py-0.5 rounded text-[10px] font-bold text-white uppercase tracking-wider ${getConfidenceColor()}`}>
+              <span className={`px-3 py-1 rounded-full text-xs font-medium uppercase tracking-wider ${getConfidenceColor()}`}>
                 Bureau Conf: {bureau_confidence}
               </span>
             </div>
             
-            <div className="text-5xl font-black text-gray-900 mb-2">
+            <div className="text-5xl font-bold text-gray-900 mb-2 mt-2">
               {final_score}
             </div>
             
             {currentBand && (
               <div 
-                className="px-3 py-1 rounded-full text-xs font-bold border"
+                className="px-3 py-1 rounded-full text-xs font-medium border"
                 style={{ backgroundColor: currentBand.bg, color: currentBand.color, borderColor: currentBand.color }}
               >
                 {currentBand.label}

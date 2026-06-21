@@ -28,6 +28,9 @@ class Settings(BaseSettings):
     # Rate limiting
     max_requests_per_minute: int = 60
 
+    # API Keys
+    gemini_api_key: str = ""
+
     @property
     def allowed_origins_list(self) -> list[str]:
         return [o.strip() for o in self.allowed_origins.split(",")]

@@ -94,19 +94,19 @@ export default function CibilInput({ onSubmit, loading, error }) {
   };
 
   return (
-    <div className="card space-y-4">
+    <div className="card shadow-sm space-y-4">
       <div className="flex justify-between items-center mb-4">
         <p className="section-title mb-0">CIBIL Report Integration</p>
         <div className="flex bg-gray-100 rounded-lg p-1">
           <button
             onClick={() => setTab('upload')}
-            className={`px-3 py-1.5 text-sm rounded-md transition-colors ${tab === 'upload' ? 'bg-white shadow-sm font-bold text-orange-600' : 'text-gray-600'}`}
+            className={`px-3 py-1.5 text-sm rounded-md transition-colors ${tab === 'upload' ? 'bg-white shadow-sm font-semibold text-orange-600' : 'text-gray-600 font-medium'}`}
           >
             Upload Report
           </button>
           <button
             onClick={() => setTab('manual')}
-            className={`px-3 py-1.5 text-sm rounded-md transition-colors ${tab === 'manual' ? 'bg-white shadow-sm font-bold text-orange-600' : 'text-gray-600'}`}
+            className={`px-3 py-1.5 text-sm rounded-md transition-colors ${tab === 'manual' ? 'bg-white shadow-sm font-semibold text-orange-600' : 'text-gray-600 font-medium'}`}
           >
             Manual Entry
           </button>

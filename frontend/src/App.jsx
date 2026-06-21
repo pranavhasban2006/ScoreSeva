@@ -1,10 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ScoreProvider } from "./context/ScoreContext";
 import Layout from "./components/Layout";
 import HealthPage from "./pages/HealthPage";
 import ScorePage from "./pages/ScorePage";
 import FraudPage from "./pages/FraudPage";
 import TrajectoryPage from "./pages/TrajectoryPage";
 import NLPPage from "./pages/NLPPage";
+import ChatWidget from "./components/ChatWidget";
 
 // Phase 3B-3D pages — placeholders until those phases are built
 const Placeholder = ({ title }) => (
@@ -19,16 +21,19 @@ const Placeholder = ({ title }) => (
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index          element={<ScorePage />} />
-          <Route path="fraud"      element={<FraudPage />} />
-          <Route path="trajectory" element={<TrajectoryPage />} />
-          <Route path="nlp"        element={<NLPPage />} />
-          <Route path="health"     element={<HealthPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <ScoreProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index          element={<ScorePage />} />
+            <Route path="fraud"      element={<FraudPage />} />
+            <Route path="trajectory" element={<TrajectoryPage />} />
+            <Route path="nlp"        element={<NLPPage />} />
+            <Route path="health"     element={<HealthPage />} />
+          </Route>
+        </Routes>
+        <ChatWidget />
+      </BrowserRouter>
+    </ScoreProvider>
   );
 }

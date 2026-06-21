@@ -72,7 +72,7 @@ export default function StatementUpload({ onAnalyze, loading, error }) {
   };
 
   return (
-    <div className="card space-y-4">
+    <div className="card shadow-sm space-y-4">
       <h3 className="text-lg font-bold">Augment with Bank Statement (Optional)</h3>
       {error && <ErrorBanner message={error} onDismiss={() => {}} />}
       
@@ -138,7 +138,7 @@ export default function StatementUpload({ onAnalyze, loading, error }) {
           <button 
             onClick={handleAnalyze}
             disabled={loading}
-            className="w-full bg-gray-900 hover:bg-black text-white py-2 rounded-lg font-medium flex items-center justify-center gap-2 transition-colors disabled:opacity-70"
+            className="w-full btn-primary flex items-center justify-center gap-2 disabled:opacity-70"
           >
             {loading ? (
               <>

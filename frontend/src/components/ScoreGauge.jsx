@@ -111,17 +111,17 @@ export default function ScoreGauge({ score, size: defaultSize = 220 }) {
       </svg>
 
       {/* Score number */}
-      <div className="text-center -mt-2">
+      <div className="text-center mt-4 mb-2">
         <p
-          className="font-bold leading-none"
-          style={{ fontSize: size * 0.2, color }}
+          className="text-6xl font-extrabold leading-none tracking-tight"
+          style={{ color }}
         >
           {score}
         </p>
-        <p className="text-sm font-semibold mt-1" style={{ color }}>
+        <p className="text-sm font-semibold mt-2 tracking-wide" style={{ color }}>
           {bandInfo.label.toUpperCase()}
         </p>
-        <p className="text-xs text-gray-400 mt-0.5">{bandInfo.range}</p>
+        <p className="text-xs text-gray-500 mt-1">{bandInfo.range}</p>
       </div>
     </div>
   );

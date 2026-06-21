@@ -2,10 +2,16 @@ export default function ResultSkeleton() {
   return (
     <div className="space-y-6 animate-pulse">
       {/* Top Header Placeholder */}
-      <div className="card text-center space-y-4 py-8">
-        <div className="w-32 h-32 bg-gray-200 rounded-full mx-auto"></div>
-        <div className="w-48 h-6 bg-gray-200 rounded-full mx-auto mt-4"></div>
-        <div className="w-32 h-4 bg-gray-200 rounded-full mx-auto mt-2"></div>
+      <div className="card text-center space-y-6 py-12 flex flex-col items-center justify-center">
+        <div className="relative w-24 h-24 mx-auto flex items-center justify-center">
+          <div className="absolute inset-0 rounded-full border-4 border-gray-100"></div>
+          <div className="absolute inset-0 rounded-full border-4 border-orange-500 border-t-transparent animate-spin"></div>
+          <span className="text-3xl">✨</span>
+        </div>
+        <div>
+          <h3 className="text-lg font-semibold text-gray-900">Generating Score...</h3>
+          <p className="text-sm text-gray-500 mt-1">Analyzing applicant profile and alternative data</p>
+        </div>
       </div>
       
       {/* Main Body Placeholder */}
